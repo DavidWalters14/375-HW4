@@ -242,36 +242,49 @@ int dp(problem p){
 		}
 	}
 	int cols = p.cap+1;
-	int matrix[rows][cols];
+	int matrix[2][cols];
 	//cout << "hello" << endl;
 	for(int i = 0 ; i < cols ; i++){
 		//cout << "column zeroer" << endl;
 		matrix[0][i]=0;
 	}
 	int mp = 0;
+	matrix[0][0]=0;
+	matrix[1][0]=0;
+			int matrixcounter = 0;
+
 	for(int i = 0 ; i < rows; i++){
-		//cout << "row zeroer" << endl;
-		matrix[i][0]=0;
-	}
-	for(int i = 0 ; i < rows; i++){
+	//	cout << "matrixcounter: " << matrixcounter << endl;
 		//cout << "i: " << i << endl;
-		matrix[i][0]=0;
+		//matrix[i][0]=0;
 		for(int c = 1 ; c < cols ; c++){
-			matrix[0][c]=0;
+			//matrix[0][c]=0;
 			if(i!=0){
-				if(weights[i]<=c&&(matrix[i-1][c-weights[i]]+profits[i])>matrix[i-1][c]){
-					matrix[i][c] = matrix[i-1][c-weights[i]]+profits[i];
+				if(weights[i]<=c&&(matrix[0][c-weights[i]]+profits[i])>matrix[0][c]){
+					matrix[1][c] = matrix[0][c-weights[i]]+profits[i];
 				}
 				else{
-					matrix[i][c] = matrix[i-1][c];
+					matrix[1][c] = matrix[0][c];
 				}
 			}
-			//cout << "matrix[" << i << "][" << c << "]: " << matrix[i][c] << " vs. mp: " << mp << endl;
-			if(matrix[i][c]>mp){
-				mp = matrix[i][c];
+			//cout << "matrix[" << i << "][" << c << "]: " << matrix[matrixcounter][c] << " vs. mp: " << mp << endl;
+			if(matrix[0][c]>mp&&matrixcounter==0){
+				mp = matrix[0][c];
+			}
+			if(matrix[1][c]>mp&&matrixcounter==1){
+				mp = matrix[1][c];
 			}
 		}
+		if(i!=0){
+			for(int c = 0 ; c < cols ; c++){
+				matrix[0][c] = matrix[1][c];
+			}
+		}
+		if(i==0){
+			matrixcounter++;
+		}
 	}
+	cout << mp << endl;
 	return mp;
 }
 
