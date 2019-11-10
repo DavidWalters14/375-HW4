@@ -241,9 +241,7 @@ int dp(problem p){
 			profits.push_back(p.profits[i-1]);
 		}
 	}
-	cout << rows << endl;
 	int cols = p.cap+1;
-	cout << cols << endl;
 	int matrix[rows][cols];
 	//cout << "hello" << endl;
 	for(int i = 0 ; i < cols ; i++){
@@ -274,8 +272,7 @@ int dp(problem p){
 			}
 		}
 	}
-	cout << "maxprofit: " << mp << endl;
-	return 0;
+	return mp;
 }
 
 
